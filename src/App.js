@@ -13,7 +13,8 @@ class App extends Component{
       cityName:'',
       key:'pk.8926f5a6fd8469d023b30b2eaf2a2f79',
       latitude:'',
-      longitude:''
+      longitude:'',
+      error : ''
     }
   }
 
@@ -21,13 +22,24 @@ class App extends Component{
     e.preventDefault();
     console.log(e)
     const Url = `https://us1.locationiq.com/v1/search.php?key=${this.state.key}&q=${this.state.cityName}&format=json` 
-    const response = await axios.get(Url);
-    console.log(response.data[0])
-    this.setState({
-      data:response.data[0],
-      latitude:response.data[0].lat,
-      longitude:response.data[0].lon
-    });
+    
+    try {const response = await axios.get(Url);
+    
+      this.setState({
+        data:response.data[0],
+        latitude:response.data[0].lat,
+        longitude:response.data[0].lon,
+        error: ''
+      });
+      console.log('dddddd');
+    } catch (error) {
+      console.log(error.message,error.name)
+      
+      this.setState({
+        error: error.message,
+        data:''
+      });
+    }
 
   }
 
@@ -51,8 +63,9 @@ class App extends Component{
               <Form.Group >
                 <Form.Control onChange={this.handelChange} style={{width:'50%',margin:'auto'}} size="lg" type="text" placeholder="Large text" />
                 <br/>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">Explore!</Button>
               </Form.Group>
+              {this.state.error ? <p style={{color:'red'}} >{this.state.error}</p>:''}
             </Form>
             { this.state.data ? <Image src= {ImgUrl} fluid /> : ''}
           </Card.Body>
