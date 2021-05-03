@@ -11,7 +11,7 @@ class App extends Component{
     this.state ={
       data:'',
       cityName:'',
-      key:'pk.8926f5a6fd8469d023b30b2eaf2a2f79',
+      key: process.env.REACT_APP_LOCATION_KEY,
       latitude:'',
       longitude:'',
       error : ''
