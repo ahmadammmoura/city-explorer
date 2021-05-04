@@ -20,6 +20,7 @@
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
+![ddd](img/06.png)
 
 ### Name of feature: ___axios___
 
