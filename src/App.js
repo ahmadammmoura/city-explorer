@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card,Button,Table,Image,Form} from 'react-bootstrap';
+import {Card,Image} from 'react-bootstrap';
 import Forms from './components/form'
 import WeatherTable from './components/table'
 
@@ -39,18 +39,19 @@ class App extends Component{
       this.getWeather(this.state.latitude,this.state.longitude)
 
     } catch (error) {
-      console.log(error.message,error.name)
+      
       
       this.setState({
         error: error.message,
-        data:''
+        data:'',
+        weather:''
       });
     }
 
   }
 
   getWeather = async (lat,lon)=>{
-    const getWeatherUrl = `${process.env.REACT_APP_SERVER}/weather`
+    const getWeatherUrl = `${process.env.REACT_APP_SERVER}/weather?&lat=${lat}&lon=${lon}`
     const weatherResponse = await axios.get(getWeatherUrl);
     console.log(weatherResponse.data);
     this.setState({
