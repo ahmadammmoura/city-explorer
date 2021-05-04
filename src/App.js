@@ -23,7 +23,7 @@ class App extends Component{
 
    handelSubmit = async (e)=>{
     e.preventDefault();
-    console.log(e)
+
     const Url = `https://us1.locationiq.com/v1/search.php?key=${this.state.key}&q=${this.state.cityName}&format=json` 
     
     try {
@@ -50,7 +50,7 @@ class App extends Component{
   }
 
   getWeather = async (lat,lon)=>{
-    const getWeatherUrl = `http://localhost:3001/weather`
+    const getWeatherUrl = `${process.env.REACT_APP_SERVER}/weather`
     const weatherResponse = await axios.get(getWeatherUrl);
     console.log(weatherResponse.data);
     this.setState({
