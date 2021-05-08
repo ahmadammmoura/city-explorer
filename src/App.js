@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card,Image} from 'react-bootstrap';
 import Forms from './components/form'
 import WeatherTable from './components/table'
+import Movies from './components/movies'
 
 
 class App extends Component{
@@ -17,6 +18,7 @@ class App extends Component{
       latitude:'',
       longitude:'',
       error : '',
+      movies:'',
       weather : ''
     }
   }
@@ -36,7 +38,11 @@ class App extends Component{
         error: ''
       });
 
-      this.getWeather(this.state.latitude,this.state.longitude)
+      
+
+      this.getWeather(this.state.latitude,this.state.longitude);
+
+      this.getmovies(this.state.cityName)
 
     } catch (error) {
       
@@ -53,9 +59,21 @@ class App extends Component{
   getWeather = async (lat,lon)=>{
     const getWeatherUrl = `${process.env.REACT_APP_SERVER}/weather?&lat=${lat}&lon=${lon}`
     const weatherResponse = await axios.get(getWeatherUrl);
-    console.log(weatherResponse.data);
+    console.log(weatherResponse.data)
+    
     this.setState({
       weather:weatherResponse.data
+    })
+    
+  }
+
+
+  getmovies = async (cityName)=>{
+    const getMoviesUrl = `${process.env.REACT_APP_SERVER}/movies?&cityName=${cityName}`
+    const moviesResponse = await axios.get(getMoviesUrl);
+    console.log(moviesResponse.data);
+    this.setState({
+      movies :moviesResponse.data
     })
   }
 
@@ -81,6 +99,7 @@ class App extends Component{
         </Card>
         
         {this.state.weather && <WeatherTable weather = {this.state.weather} />}
+        {this.state.movies && <Movies movies = {this.state.movies} />}
       </>
     )
   }
