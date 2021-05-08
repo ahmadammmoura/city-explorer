@@ -7,13 +7,13 @@ export class WeatherTable extends Component {
   const listOfData = this.props.weather.map((city,index) =>{
     
       return (
-        <>
-          <tr key = {index}  >
+        
+          <tr key = {index}>
               <td>{index+1}</td>
               <td>{city.description}</td>
               <td>{city.date}</td>
           </tr>
-        </>
+        
       )
   })
 
